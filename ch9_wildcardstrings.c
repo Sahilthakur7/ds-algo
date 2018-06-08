@@ -1,13 +1,19 @@
 #include<stdio.h>
 
 #define MAX_LIMIT 10
-char string[10];
-char array[10];
 
-void binary(int number);
+struct ArrayWrapper{
+    char array[10];
+};
+
+
+void generate(struct ArrayWrapper obj,int number , int count);
 
 int main(){
+    struct ArrayWrapper obj;
+    char string[10];
     int count=0;
+    int i,j=0;
 
     printf("Enter your strings using ? as wildcard\n");
     
@@ -17,19 +23,37 @@ int main(){
         count++;
     }
 
-    binary(count-1);
+    for(i=0;i<count;i++){
+        obj.array[i] = string[i];
+    }
+
+
+    count = count -1 ;
+
+    generate(obj,0,count);
 
     return 0;
 }
 
-void binary(int number){
-    if(number<1){
-        printf("%s\n",array);
+void generate(struct ArrayWrapper obj,int i,int count){
+    printf("%d\n",i);
+
+    if(i == count){
+        printf("%s",obj.array);
+        return;
     }
-    else{
-        array[number-1] = '0';
-        binary(number -1 );
-        array[number-1] = '1';
-        binary(number - 1);
+
+    if(obj.array[i] == '?'){
+        obj.array[i] = '0';
+        generate(obj, i+1 , count);
+        obj.array[i] = '1';
+        generate(obj,i+1, count);
     }
+    else
+        generate(obj,i+1,count);
+    
+
 }
+
+
+//Lesson: arrays are always passed by reference in C. To pass them by value(so that there values does not change) use struc ArrayWrapper.
