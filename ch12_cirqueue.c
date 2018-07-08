@@ -13,7 +13,7 @@ void enqueue(struct ArrayQueue *Q);
 void printqueue(struct ArrayQueue *Q);
 int dequeue(struct ArrayQueue *Q);
 void isFull(struct ArrayQueue *Q);
-void isEmpty(struct ArrayQueue *Q);
+int isEmpty(struct ArrayQueue *Q);
 
 int main(){
     int choice;
@@ -33,8 +33,13 @@ int main(){
                 enqueue(Q);
                 break;
             case 2:
+                if(isEmpty(Q) == 1){
+                    printf("Cannot dequeue from empty\n");
+                }
+                else{
                 el = dequeue(Q);
                 printf("%d has been dequeued\n",el);
+                }
                 break;
             case 3:
                 isFull(Q);
@@ -88,13 +93,15 @@ void isFull(struct ArrayQueue *Q){
     }
 }
 
-void isEmpty(struct ArrayQueue *Q){
-    if(Q->front = -1){
-        printf("Yes it is empty");
+int isEmpty(struct ArrayQueue *Q){
+    if(Q->front == -1 || Q->front > Q->rear){
+        printf("It is empty\n");
+        return 1;
     }
     else{
-        printf("no, it is not empty\n");
+        return 2;
     }
+
 }
 
 void printqueue(struct ArrayQueue *Q){
