@@ -14,10 +14,11 @@ void printqueue(struct ArrayQueue *Q);
 int dequeue(struct ArrayQueue *Q);
 void isFull(struct ArrayQueue *Q);
 int isEmpty(struct ArrayQueue *Q);
+int queueSize(struct ArrayQueue *Q);
 
 int main(){
     int choice;
-    int el;
+    int el,size;
     struct ArrayQueue *Q = (struct ArrayQueue *)malloc(sizeof(struct ArrayQueue));
 
     Q->capacity = SIZE;
@@ -26,7 +27,7 @@ int main(){
     Q->rear = -1;
 
     while(1){
-        printf("\nEnter your choice: 1.Enqueue  2.Dequeue  3.IsFull  4.IsEmpty  5.Exit\n");
+        printf("\nEnter your choice: 1.Enqueue  2.Dequeue  3.IsFull  4.IsEmpty  5.Exit  6.QueueSize\n");
         scanf("%d",&choice);
         switch(choice){
             case 1:
@@ -49,6 +50,11 @@ int main(){
                 break;
             case 5:
                 exit(1);
+                break;
+            case 6:
+                size = queueSize(Q);
+                printf("Size is %d",size);
+                
         }
     }
     return 0;
@@ -67,7 +73,7 @@ void enqueue(struct ArrayQueue *Q){
         Q->array[Q->rear] = value;
     }
     else{
-        Q->rear = Q->rear + 1;
+        Q->rear = (Q->rear + 1) % SIZE;
         Q->array[Q->rear] = value;
     }
 
@@ -78,7 +84,12 @@ int dequeue(struct ArrayQueue *Q){
     int value;
 
     value = Q->array[Q->front];
-    Q->front = Q->front + 1;
+    if(Q->front == Q->rear){
+        Q->front = Q->rear = -1;
+    }
+    else{
+        Q->front = (Q->front + 1) % SIZE;
+    }
 
     return value;
 
@@ -118,4 +129,6 @@ void printqueue(struct ArrayQueue *Q){
     }
 }
 
-
+int queueSize(struct ArrayQueue *Q){
+    return (Q->capacity - Q->front + Q->rear + 1)% Q->capacity;
+}
