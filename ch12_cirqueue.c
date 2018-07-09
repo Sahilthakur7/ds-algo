@@ -130,5 +130,6 @@ void printqueue(struct ArrayQueue *Q){
 }
 
 int queueSize(struct ArrayQueue *Q){
+    printf("C->%d,f->%d,r->%d",Q->capacity,Q->front,Q->rear);
     return (Q->capacity - Q->front + Q->rear + 1)% Q->capacity;
 }
