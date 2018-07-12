@@ -25,9 +25,14 @@ int main(){
     printf("\nEnter the size of your window:");
     scanf("%d",&winsize);
 
-    max = findmax(array,0,size);
+    for(i=0;i<size-2;i++){
 
-    printf("\nThe max is:%d",max);
+        max = findmax(array,i,i+winsize);
+
+        printf("\nThe max in window %d is:%d",i+1,max);
+
+    }
+
 
     return 0;
 }
