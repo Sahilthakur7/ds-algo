@@ -60,18 +60,18 @@ void insertinpos(struct node **root, struct node * r){
         *root = r;
         return ;
     }
-/*     else{ */
-/*         if(temp->left == NULL){ */
-/*             temp->left = r; */
-/*         } */
-/*         else if(temp->right == NULL){ */
-/*             temp->right = r; */
-/*         } */
-/*         else{ */
-/*             insertinpos(&(temp->left),r); */
-/*             insertinpos(&(temp->right),r); */
-/*         } */
-/*     } */
+    else{
+        if(temp->left == NULL){
+            temp->left = r;
+        }
+        else if(temp->right == NULL){
+            temp->right = r;
+        }
+        else{
+            insertinpos(&(temp->left),r);
+            insertinpos(&(temp->right),r);
+        }
+    }
 
 }
 
@@ -80,7 +80,14 @@ void printtree(struct node *root){
     temp = root;
 
     if(root){
-        printf("%d",root->data);
+        printf("NODE -> %d",root->data);
+        if(root->left){
+            printf("LEFT -> %d",root->left->data);
+        }
+        if(root->right){
+            printf("RIGHT -> %d",root->right->data);
+        }
+        printf("\n");
         printtree(root->left);
         printtree(root->right);
     }
