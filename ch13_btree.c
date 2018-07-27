@@ -18,7 +18,7 @@ int main(){
     root = NULL;
 
     while(1){
-        printf("\nEnter the choice: 1.Insert 2.Delete 3.Count");
+        printf("\nEnter the choice: 1.Insert 2.Delete 3.Count\n");
         scanf("%d",&choice);
 
         switch(choice){
@@ -56,6 +56,7 @@ void insertinpos(struct node **root, struct node * r){
     struct node *temp;
     temp = *root;
 
+
     if(*root == NULL){
         *root = r;
         return ;
@@ -68,9 +69,13 @@ void insertinpos(struct node **root, struct node * r){
             temp->right = r;
         }
         else{
-            insertinpos(&(temp->left),r);
-            insertinpos(&(temp->right),r);
-        }
+            if(temp->left->left && temp->left->right){
+                insertinpos(&(temp->right),r);
+            }
+            else{
+                insertinpos(&(temp->left),r);
+
+            }}
     }
 
 }
