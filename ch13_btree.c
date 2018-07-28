@@ -12,9 +12,10 @@ struct node * root;
 void insert(struct node ** root);
 void insertinpos(struct node **root, struct node *r);
 void printtree(struct node *root);
+int count(struct node *root);
 
 int main(){
-    int choice;
+    int choice,number;
     root = NULL;
 
     while(1){
@@ -24,6 +25,10 @@ int main(){
         switch(choice){
             case 1:
                 insert(&root);
+                break;
+            case 3:
+                number = count(root)  ;
+                printf("\n %d ",number);
                 break;
         }
     }
@@ -69,7 +74,10 @@ void insertinpos(struct node **root, struct node * r){
             temp->right = r;
         }
         else{
-            if(temp->left->left && temp->left->right){
+            if(temp->right->left && temp->right->right){
+                insertinpos(&(temp->left),r);
+            }
+            else if(temp->left->left && temp->left->right){
                 insertinpos(&(temp->right),r);
             }
             else{
@@ -95,6 +103,20 @@ void printtree(struct node *root){
         printf("\n");
         printtree(root->left);
         printtree(root->right);
+    }
+
+}
+
+int count(struct node *root){
+    struct node *temp;
+    int res;
+
+
+    if(root == NULL){
+        return 0;
+    }
+    else{
+        return 1 + count(root->left) + count(root->right);
     }
 
 }
