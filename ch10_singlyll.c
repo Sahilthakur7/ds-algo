@@ -13,6 +13,7 @@ void delbeg(struct node **head);
 void delend(struct node **head);
 void delpos(struct node **head);
 void dellist(struct node **head);
+void revlist(struct node **head);
 
 int main(){
     struct node *q;
@@ -20,7 +21,7 @@ int main(){
     int choice;
 
     while(1){
-        printf("--------------------\nEnter your operation\n--------------------\n 1.Exit\n 2.Add at beg\n 3.Add end\n 4.Delete at begin \n 5.Delete at end \n 6.Delete at position\n 7.Delete list \n");
+        printf("--------------------\nEnter your operation\n--------------------\n 1.Exit\n 2.Add at beg\n 3.Add end\n 4.Delete at begin \n 5.Delete at end \n 6.Delete at position\n 7.Delete list \n8.Reverse List\n");
         scanf("%d",&choice);
 
 
@@ -44,6 +45,9 @@ int main(){
                 break;
             case 7:
                 dellist(&q);
+                break;
+            case 8:
+                revlist(&q);
                 break;
             default:
                 exit(2);
@@ -190,4 +194,42 @@ void printlist(struct node *head){
         head = head->next;
     }
     printf("\n \n");
+}
+
+void revlist(struct node **head){
+    struct node *temp,*temp2;
+    int i,count=0,j,k;
+
+    temp = *head;
+
+    while(temp != NULL){
+        count++;
+        temp = temp->next;
+    }
+
+
+    for(i=0;i<count/2;i++){
+        temp = *head;
+        temp2 = *head;
+        if(i == 0){
+
+        }
+        else{
+            for(j=0;j<i;j++){
+                temp = temp->next;
+            }
+        }
+
+        for(k=0;k<count-(i+1);k++){
+            temp2 = temp2->next;
+        }
+
+        temp->data = temp->data + temp2->data;
+        temp2->data = temp->data - temp2->data;
+        temp->data = temp->data - temp2->data;
+
+    }
+
+    printlist(*head);
+
 }
