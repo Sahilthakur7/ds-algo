@@ -11,6 +11,8 @@ struct node {
 void insert(struct node **root,int value);
 void printtree(struct node *root);
 int max(struct node *root);
+int search(struct node *root, int value);
+void delete(struct node **root,int value);
 
 int main(){
     struct node *root;
@@ -27,9 +29,24 @@ int main(){
                 scanf("%d",&value);
                 insert(&root,value);
                 break;
+            case 2:
+                printf("\nEnter the value:");
+                scanf("%d",&value);
+                delete(&root,value);
+                break;
             case 3:
                 largest = max(root);
                 printf("%d is the largest element",largest);
+                break;
+            case 4:
+                printf("\nEnter the value:");
+                scanf("%d",&value);
+                if(search(root,value) == 1){
+                    printf("\nYes,found");
+                }
+                else{
+                    printf("\nNo,Not found");
+                }
                 break;
             case 5:
                 printtree(root);
@@ -92,3 +109,26 @@ int max(struct node *root){
     largest = root->data;
     return largest;
 }
+
+int search(struct node *root, int value){
+    int found;
+    if(root->data == value){
+        found = 1;
+        return found;
+    }
+    else{
+        if(root->data > value){
+            if(root->left){
+                search(root->left,value);
+            }
+            else return 0;
+        }
+        else{
+            if(root->right){
+                search(root->right,value);
+            }
+            else return 0;
+        }
+    }
+}
+
