@@ -18,7 +18,7 @@ int main(){
 
 
     for(h=n/2;h>0;h = h/3){
-        for(i=1;i<n-1;i++){
+        for(i=h+1;i<n-1;i++){
             {
                 if(array[i] > array[i+1]){
                     loc = i + 1;
