@@ -3,41 +3,39 @@
 #include<stdlib.h>
 
 int main(){
-    int *array,n,loc,i,j,temp,h;
+    int *a,n,loc,i,j,temp,gap;
 
     printf("Enter the number of elements in the array:");
     scanf("%d",&n);
 
-    array=(int *)malloc(sizeof(int)* n);
+    a=(int *)malloc(sizeof(int)* n);
 
     printf("\nEnter the elements of your array:");
 
     for(i=0;i<n;i++){
-        scanf("%d",&array[i]);
+        scanf("%d",&a[i]);
     }
 
 
-    for(h=n/2;h>0;h = h/3){
-        for(i=h+1;i<n-1;i++){
-            {
-                if(array[i] > array[i+1]){
-                    loc = i + 1;
-                    temp = array[i + 1];
-                }
+    for(gap=n/2;gap>0;gap/=2)
+    {
+        for(i=gap;i<n;i+=1)
+        {
+            temp=a[i];
 
-                while(loc > 0 && array[loc-1] > temp){
-                    array[loc] = array[loc -1];
-                    loc --;
-                }
-                array[loc] = temp;
-            }
+            for(j=i;j>=gap&&a[j-gap]>temp;j-=gap)
+                a[j]=a[j-gap];
+
+            a[j]=temp;
+
         }
+
     }
 
     printf("\nThe sorted array is:");
 
     for(i=0;i<n;i++){
-        printf("\t%d",array[i]);
+        printf("\t%d",a[i]);
     }
 
 
