@@ -19,7 +19,7 @@ int main(){
 
         swapped = 0;
 
-        for(i=0;i<pass-1 ;i++){
+        for(i=0;i<pass ;i++){
 
             if(array[i] > array[i+1]){
                 array[i] = array[i] + array[i+1];
